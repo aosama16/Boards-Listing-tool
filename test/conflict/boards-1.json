@@ -1,0 +1,19 @@
+{
+  "boards": [
+    {
+      "name": "B7-400X",
+      "vendors": "Boards R Us",
+      "core": "Cortex-M7",
+      "has_wifi": true,
+      "virtualization": "yes",
+      "over": "yes"
+    },
+    {
+      "name": "B7-400X",
+      "vendor": "Boards R Us",
+      "core": "Cortex-M7",
+      "has_wifi": false,
+      "virtualization": "no"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "boards": [
+    {
+      "name": "B10-400X",
+      "vendor": "Boardzilla",
+      "core": "Cortex-M7",
+      "has_wifi": true
+    },
+    {
+      "name": "Low_Power",
+      "vendor": "Boardzilla",
+      "core": "Cortex-M0+",
+      "has_wifi": false
+    }
+  ]
+}

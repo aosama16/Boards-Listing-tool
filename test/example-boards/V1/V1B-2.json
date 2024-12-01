@@ -1,0 +1,10 @@
+{
+  "boards": [
+    {
+      "name": "D7-200S",
+      "vendor": "Boards R Us",
+      "core": "Cortex-M7",
+      "has_wifi": false
+    }
+  ]
+}

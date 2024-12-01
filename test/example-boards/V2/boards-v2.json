@@ -1,0 +1,16 @@
+{
+  "boards": [
+    {
+      "name": "B7-400X",
+      "vendor": "Boards R Us",
+      "core": "Cortex-M7",
+      "has_wifi": false
+    },
+    {
+      "name": "Low_Power",
+      "vendor": "Tech Corp.",
+      "core": "Cortex-M0+",
+      "has_wifi": false
+    }
+  ]
+}
