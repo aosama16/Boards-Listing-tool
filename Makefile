@@ -20,5 +20,9 @@ build:
 clean:
 	$(RM) $(BUILD_DIR)
 
-run: build
-	$(BUILD_DIR)/$(APP_NAME)
+test:
+	go test -v ./...
+
+cov: build
+	go test -coverprofile=$(BUILD_DIR)/coverage.out ./...
+	go tool cover -html=$(BUILD_DIR)/coverage.out -o $(BUILD_DIR)/coverage.html

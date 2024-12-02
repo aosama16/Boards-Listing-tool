@@ -1,7 +1,0 @@
-{
-    "name": "SIMD-1000X",
-    "vendor": "Boards CO",
-    "core": "Cortex-M7",
-    "has_wifi": true,
-    "virtualization": "yes"
-}

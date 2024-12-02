@@ -4,6 +4,7 @@ import (
 	"boards-merger/internal/core"
 	"boards-merger/internal/utils/logger"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"os"
 )
@@ -11,11 +12,24 @@ import (
 func main() {
 	logger.Enable()
 
-	testpath := "./test/example-boards"
-	// testpath := "./test/sandbox"
-	// testpath := "./test/conflict"
-	// testpath := "./test/symlinks"
-	jsonList, err := core.ReadDirectory(testpath, false, 10)
+	dirPathFlag := flag.String("path", "", "Path to the directory containing JSON files")
+	recursiveFlag := flag.Bool("r", false, "Enable recursive directory traversal")
+	depthFlag := flag.Int("depth", 10, "Maximum depth for directory traversal, used only when recursive is set")
+	flag.Parse()
+
+	dirPath := *dirPathFlag
+	if len(dirPath) == 0 {
+		fmt.Print("Enter the path to the directory: ")
+		fmt.Scanln(&dirPath)
+	}
+
+	recursive := *recursiveFlag
+	depth := *depthFlag
+	if !recursive {
+		depth = 0
+	}
+
+	jsonList, err := core.ReadDirectory(dirPath, recursive, depth)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)

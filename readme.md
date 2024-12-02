@@ -5,6 +5,9 @@
 	- Handle files with .json only, case insensitive (.JSON is allowed for example)
 	- Recursive search through subdirectories (optional recursive flag with max depth)
 	- Skip Symbolic links
+	- depth 0 traversal refers to the children of the directory that will be parsed
+	- depth 1 traversal refers to first recursive level of the subdirectories' children
+	- processing a path can be done through program arguments and through user input if the arguments aren't used
 - Combine all board lists inside the JSON files into a single JSON output
 	- LOG: Empty JSON, Empty Array
 	- LOG: Invalid JSON
@@ -44,6 +47,5 @@
 ### MakeFile commands
 - build
 - clean
-- run
 - test
 - cov
