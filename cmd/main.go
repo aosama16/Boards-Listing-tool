@@ -10,10 +10,9 @@ import (
 )
 
 func main() {
-	logger.Enable()
-
 	dirPathFlag := flag.String("path", "", "Path to the directory containing JSON files")
-	recursiveFlag := flag.Bool("r", false, "Enable recursive directory traversal")
+	recursiveFlag := flag.Bool("r", false, "Enable recursive directory traversal (default: disabled)")
+	loggingFlag := flag.Bool("l", false, "Enable logs (default: disabled)")
 	depthFlag := flag.Int("depth", 10, "Maximum depth for directory traversal, used only when recursive is set")
 	flag.Parse()
 
@@ -27,6 +26,12 @@ func main() {
 	depth := *depthFlag
 	if !recursive {
 		depth = 0
+	}
+
+	if *loggingFlag {
+		logger.Enable()
+	} else {
+		logger.Disable()
 	}
 
 	jsonList, err := core.ReadDirectory(dirPath, recursive, depth)
