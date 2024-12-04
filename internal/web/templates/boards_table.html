@@ -1,0 +1,35 @@
+{{ if .Error }}
+<h3>{{ .Error }}<h3>
+{{ else }}
+<h3>Found {{ .Result.MetaData.TotalBoards }} boards, from {{ .Result.MetaData.UniqueVendors }} vendors<h3>
+<table>
+    <thead>
+        <tr>
+            <th>Vendor</th>
+            <th>Name</th>
+            <th>Core</th>
+            <th>Has WiFi</th>
+            <th>Additional Info</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ range .Result.Boards }}
+        <tr>
+            <td>{{ .Vendor }}</td>
+            <td>{{ .Name }}</td>
+            <td>{{ if eq .Core "" }}N/A{{ else }}{{ .Core }}{{ end }}</td>
+            <td>{{ if .HasWiFi}}
+                {{if (DerefBool .HasWiFi)}}Yes{{ else }}No{{ end }}
+                {{ else }}
+                N/A
+                {{ end }}</td>
+            <td>
+                {{ range $key, $value := .ExtraEntries }}
+                {{ $key }}: {{ $value }}<br>
+                {{ end }}
+            </td>
+        </tr>
+        {{ end }}
+    </tbody>
+</table>
+{{ end }}

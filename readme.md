@@ -1,20 +1,40 @@
-### Build system
-* `make build` builds the project in `./build`
+# Build system
+* `make build` 
+	- Builds both the CLI and web applicaiton in `./build`
+	- Outputs `cli_boards_merger` & `web_boards_merger`
+* `make build-cli` 
+	- Builds the CLI applicaiton in `./build`
+	- Outputs `cli_boards_merger`
+* `make build-web` 
+	- Builds the web applicaiton in `./build`
+	- Outputs `web_boards_merger`
 * `make clean` 
-* `make test` builds the projects and runs go test 
-* `make cov` builds the projects, runs the tests and produces a HTML coverage report in the build directory
+	- Removes the build directory `./build`
+* `make test` 
+	- Builds the project and runs go test 
+* `make cov` 
+	- Builds the project, runs the tests, and produces an HTML coverage report.
+	- Outputs `coverage.html` in the build directory `./build`
 
-### Program Arguments
+# Running the Application
+## cli-boards-merger arguments
+`./build/cli_boards_merger -h`
 ```
-  -depth int
-        Maximum depth for directory traversal, used only when recursive is set (default 10)
-  -l    Enable logs
-  -path string
-        Path to the directory containing JSON files
-  -r    Enable recursive directory traversal
+  -path   string
+          Path to the directory containing JSON files
+  -r      Enable recursive directory traversal
+  -depth  int
+          Maximum depth for directory traversal, used only when recursive is set (default 10)
+  -l      Enable logs
 ```
 
-### Assumptions and Design Decisions:
+## web-boards-merger arguments
+`./build/web_boards_merger -h`
+```
+  -port   string
+          Port number for the web server (default "8080")
+```
+# Assumptions and Design Decisions:
 - Process a path to any directory.
 	1. Only directories are accepted; invalid paths, file paths, no permissions are reported as errors.
 	2. Process one directory
@@ -29,9 +49,10 @@
 		2. Only JSON objects with `name` and `vendor` are valid (case-sensitive).
 		3. `core` and `has_wifi` are optional, and are ommitted if not privided in the original data.
 	- JSON properties processing:
-		1. Extra key-value properties are allowed and perserved in the final result.
-		2. Property keys are trimmed of leading and trailing spaces
-		3. `name`, `vendor` & `core` property values are trimmed before evaluation, a value of spaces "   " is considered missing data
+		1. Duplicate keys are allowed, but only one output key is generated, latest key read will determine the value chosen for that key
+		2. Extra key-value properties are allowed and perserved in the final result.
+		3. Property keys are trimmed of leading and trailing spaces
+		4. `name`, `vendor` & `core` property values are trimmed before evaluation, a value of spaces "   " is considered missing data
 	- Duplicate boards
 		1. Boards with identical `name` and `vendor` are merged.
 		2. If conflicting properties exists, a warning log is produced, and one of the values is choses (Based on read order)
@@ -47,6 +68,14 @@
 	1. Indented JSON CLI output
 
 - Stretch goal, create a web service which will serve this JSON data over HTTP
+	1. Use htmx to handle POST request to process a directory
+	2. Use "html/template" to handle html rendering
+	3. A directory path must available to the local server, and any relative path is relative to the current working directory
+	4. Display results in a table format
+		- Optional arguments `core` and `has_wifi` display `N/A` if not available
+		- Additional properties are displayed as is in the "Additional Info" column
+	5. Errors are displayed instead of the table result
+	6. Logging is always enabled, and is written to the terminal
 
 - Testing
 	1. Cross Platform tests (Github actions)

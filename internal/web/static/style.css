@@ -1,0 +1,86 @@
+:root {
+    --bg: #e9e7e0;
+    --dark-bg: #373f47;
+    --light-bg: #c9c8c5;
+    --button: #ed9b40;
+    --button-hover: #d7862a;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    background-color: var(--bg);
+}
+
+/* Table Styling */
+table {
+    border-collapse: collapse;
+    background-color: var(--light-bg);
+    overflow: hidden;
+    width:100%
+}
+
+th, td {
+    text-align: left;
+    font-size: 12px;
+    padding: 10px;
+}
+
+th {
+    background-color: var(--dark-bg);
+    color: #e9e7e0;
+}
+
+.center {
+    width: 90%;
+    margin: 0 auto
+}
+
+/* Banner Styling */
+.banner {
+    background-color: var(--dark-bg);
+    color: white;
+    padding: 1.5rem;
+}
+
+.banner input, .banner select, .banner button {
+    border: none;
+    border-radius: 2px;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Input Fields */
+.banner #path {
+    width: 30%;
+    margin-right: 20px;
+}
+
+.banner #depth {
+    width: 50px;
+    margin-right: 20px;
+}
+
+/* Checkbox */
+.banner #recursive {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 20px;
+    accent-color: var(--button);
+    vertical-align: middle;
+}
+
+/* Submit Button */
+.banner #submit {
+    background-color: var(--button);
+    color: white;
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: background-color 0.3s;
+}
+
+.banner #submit:hover {
+    background-color: var(--button-hover);
+}

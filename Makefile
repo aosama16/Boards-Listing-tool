@@ -1,5 +1,6 @@
-APP_NAME := boards_merger
-BUILD_DIR := ./build
+CLI_APP_NAME=cli_boards_merger
+WEB_APP_NAME=web_boards_merger
+BUILD_DIR=./build
 
 .PHONY: all build clean test
 
@@ -13,12 +14,18 @@ endif
 
 all: build
 
-build:
-	$(MKDIR) $(BUILD_DIR)
-	go build -o $(BUILD_DIR)/$(APP_NAME) ./cmd/main.go
+build: build-cli build-web
+
+build-cli:
+	-$(MKDIR) $(BUILD_DIR)
+	go build -o $(BUILD_DIR)/$(CLI_APP_NAME) ./cmd/cli/main.go
+
+build-web:
+	-$(MKDIR) $(BUILD_DIR)
+	go build -o $(BUILD_DIR)/$(WEB_APP_NAME) ./cmd/web/main.go
 
 clean:
-	$(RM) $(BUILD_DIR)
+	-$(RM) $(BUILD_DIR)
 
 test:
 	go test -v ./...
