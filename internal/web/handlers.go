@@ -15,6 +15,7 @@ func StartWebServer(port string) error {
 	mux.HandleFunc("/", handleRoot)
 	mux.HandleFunc("POST /processPath", handleProcessPath)
 
+	// Setup the file server based on the executable path to avoid relative path and CWD problems
 	execPath, err := os.Executable()
 	if err != nil {
 		return fmt.Errorf("failed to setup static file server: %v", err.Error())

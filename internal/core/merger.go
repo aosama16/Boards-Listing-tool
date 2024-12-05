@@ -50,15 +50,15 @@ func ProcessJsonFiles(jsonFilePaths []string) (*model.BoardsInfo, error) {
 
 		for _, board := range boardsList.Boards {
 			boardHash := hashBoard(board.Vendor, board.Name)
+
+			// Try to merge boards that has the same name and vendor, conflicting info resolution is based on read order
 			if existingBoard, exists := boardsMap[boardHash]; exists {
 				logger.Warn("Found a duplicate entry for board '%v' made by '%v', Attempting to merge them", board.Name, board.Vendor)
 				board.Merge(existingBoard)
 			}
 			boardsMap[boardHash] = board
 
-			if _, exists := vendorSet[board.Vendor]; !exists {
-				vendorSet[board.Vendor] = void{}
-			}
+			vendorSet[board.Vendor] = void{}
 		}
 	}
 
@@ -66,6 +66,7 @@ func ProcessJsonFiles(jsonFilePaths []string) (*model.BoardsInfo, error) {
 		return nil, fmt.Errorf("no valid boards found")
 	}
 
+	// Copy back boards into result object based on sorted board hash (vendor::name)
 	sortekBoardKeys := sortedKeys(boardsMap)
 	boardsInfo.Boards = make([]model.Board, 0, len(boardsMap))
 	for _, key := range sortekBoardKeys {

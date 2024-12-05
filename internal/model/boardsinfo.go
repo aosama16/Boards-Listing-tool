@@ -35,6 +35,7 @@ func (boardinfo *BoardsInfo) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// Try to unmarshal a single JSON board object
 	if len(tempBoards.Boards) == 0 {
 		logger.Info("Attempting to parse a single board")
 		var singleboard Board

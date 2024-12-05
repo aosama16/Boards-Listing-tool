@@ -34,6 +34,24 @@
   -port   string
           Port number for the web server (default "8080")
 ```
+
+# Project Structure
+```
+ ├── build                  Build directory generated from `make build`, contains executable and coverage report
+ ├── cmd
+ │   ├── cli                Driver code for CLI application
+ │   └── web                Driver code for web application
+ └── Internal
+     ├── core               Contains logic for directory searching and aggregating JSON files
+     ├── model              Data structure for boards and associated logic for Marshaling, Unmarshaling & merging boards
+     ├── utils
+     |   ├── logger         Simple Logging library, can be enabled/disabled
+     |   └── testutils      Utility functions for testing (mainly temp directory and file management)
+     └── web                Contains routing logic, and HTML templates handling
+         ├── static         Static files to be served in a file server		
+         └── templates      HTML templates to be processed by "html/template"
+```
+
 # Assumptions and Design Decisions:
 - Process a path to any directory.
 	1. Only directories are accepted; invalid paths, file paths, no permissions are reported as errors.
@@ -79,9 +97,8 @@
 
 - Testing
 	1. Cross Platform tests (Github actions)
-	2. Unit tests (Go test)
+	2. Table-Driven unit tests (Go test)
 
 - Logging
 	1. Logging can be enabled by passing flag `-l`
 	2. Three level of warning exists (INFO, WARN, ERROR)
-

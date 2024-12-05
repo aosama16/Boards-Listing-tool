@@ -37,6 +37,7 @@ func ReadDirectory(dirPath string, recursive bool, maxDepth int) ([]string, erro
 			return nil
 		}
 
+		// Avoid recursive directory walking
 		if d.Type()&os.ModeSymlink != 0 {
 			logger.Warn("Skipping Symbolic link: %v", path)
 			return nil
@@ -58,6 +59,7 @@ func ReadDirectory(dirPath string, recursive bool, maxDepth int) ([]string, erro
 			}
 		}
 
+		// '*.json' match is case insensitive
 		if !d.IsDir() && strings.ToLower(filepath.Ext(d.Name())) == ".json" {
 			jsonFiles = append(jsonFiles, absPath)
 			logger.Info("Found JSON file: %v", absPath)
